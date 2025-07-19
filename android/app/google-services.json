@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "657898044552",
+    "project_id": "hopin-51e85",
+    "storage_bucket": "hopin-51e85.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:657898044552:android:a168b16a84bbaed84a333d",
+        "android_client_info": {
+          "package_name": "com.hopin.student.hopin_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDD_ARyOApATFvwbtAOBNvZLD3PbhsYXHQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
