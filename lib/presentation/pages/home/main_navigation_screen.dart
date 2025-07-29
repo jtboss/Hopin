@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../theme/app_theme.dart';
-import 'map_home_screen.dart';
+import '../map/snapchat_map_screen.dart';
 import 'my_rides_screen.dart';
 import 'driver_dashboard_screen.dart';
 import 'profile_screen.dart';
@@ -31,7 +31,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     if (_isDriverMode) {
       _pages = [
         const DriverDashboardScreen(),
-        MapHomeScreen(isDriverMode: true),
+        const SnapchatMapScreen(isDriverMode: true),
         const MyRidesScreen(showDriverRides: true),
       ];
       
@@ -55,7 +55,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     } else {
       _pages = [
         const MyRidesScreen(showDriverRides: false),
-        MapHomeScreen(isDriverMode: false),
+        const SnapchatMapScreen(isDriverMode: false),
         const ProfileScreen(),
       ];
       
@@ -98,8 +98,11 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isMapScreen = _currentIndex == 1; // Map is always at index 1
+    
     return Scaffold(
-      appBar: AppBar(
+      // Remove app bar for full-screen map experience
+      appBar: isMapScreen ? null : AppBar(
         title: Text(_isDriverMode ? 'Hopin Driver' : 'Hopin'),
         backgroundColor: HopinColors.surface,
         surfaceTintColor: Colors.transparent,
@@ -150,7 +153,8 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         children: _pages,
       ),
       
-      bottomNavigationBar: BottomNavigationBar(
+      // Hide bottom nav for full-screen map experience
+      bottomNavigationBar: isMapScreen ? null : BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
@@ -165,6 +169,10 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         unselectedFontSize: 12,
         items: _items,
       ),
+      
+      // Floating navigation for map screen
+      floatingActionButton: isMapScreen ? _buildMapNavigation() : null,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
@@ -265,6 +273,115 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             ),
             
             SizedBox(height: MediaQuery.of(context).padding.bottom),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// Build floating navigation for map screen
+  Widget _buildMapNavigation() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: BoxDecoration(
+        color: HopinColors.background.withOpacity(0.95),
+        borderRadius: BorderRadius.circular(25),
+        boxShadow: [
+          BoxShadow(
+            color: HopinColors.onBackground.withOpacity(0.1),
+            blurRadius: 20,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // My Rides
+          _buildNavItem(
+            icon: _isDriverMode ? Icons.directions_car_outlined : Icons.history_outlined,
+            activeIcon: _isDriverMode ? Icons.directions_car : Icons.history,
+            label: 'Rides',
+            index: 0,
+          ),
+          
+          const SizedBox(width: 20),
+          
+          // Map (current)
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            decoration: BoxDecoration(
+              color: HopinColors.snapchatYellow,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(
+                  Icons.map,
+                  size: 20,
+                  color: HopinColors.midnightBlue,
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  _isDriverMode ? 'DRIVING' : 'EXPLORE',
+                  style: HopinTextStyles.snapchatButton.copyWith(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          
+          const SizedBox(width: 20),
+          
+          // Profile or Dashboard
+          _buildNavItem(
+            icon: _isDriverMode ? Icons.dashboard_outlined : Icons.person_outline,
+            activeIcon: _isDriverMode ? Icons.dashboard : Icons.person,
+            label: _isDriverMode ? 'Dashboard' : 'Profile',
+            index: 2,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildNavItem({
+    required IconData icon,
+    required IconData activeIcon,
+    required String label,
+    required int index,
+  }) {
+    final isActive = _currentIndex == index;
+    
+    return GestureDetector(
+      onTap: () => _navigateToTab(index),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              isActive ? activeIcon : icon,
+              size: 20,
+              color: isActive 
+                  ? HopinColors.snapchatYellow
+                  : HopinColors.onSurfaceVariant,
+            ),
+            const SizedBox(height: 2),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.w600,
+                color: isActive 
+                    ? HopinColors.snapchatYellow
+                    : HopinColors.onSurfaceVariant,
+              ),
+            ),
           ],
         ),
       ),
