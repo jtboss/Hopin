@@ -1,55 +1,70 @@
 import 'package:flutter/material.dart';
 
-/// Hopin app color scheme
+/// Hopin 2.0 Snapchat-inspired color scheme
 class HopinColors {
-  // Primary brand colors
-  static const Color primary = Color(0xFF6366F1); // Indigo
-  static const Color primaryContainer = Color(0xFFE0E7FF);
-  static const Color onPrimary = Color(0xFFFFFFFF);
-  static const Color onPrimaryContainer = Color(0xFF1E1B3A);
+  // Primary Colors (Snapchat-inspired)
+  static const Color snapchatYellow = Color(0xFFFFFC00);
+  static const Color ghostWhite = Color(0xFFFAFAFA);
+  static const Color midnightBlue = Color(0xFF162447);
+  
+  // Accent Colors
+  static const Color liveGreen = Color(0xFF00D4AA);
+  static const Color urgentRed = Color(0xFFFF006E);
+  static const Color friendGold = Color(0xFFFFD700);
+  
+  // Legacy compatibility - mapped to new system
+  static const Color primary = snapchatYellow;
+  static const Color primaryContainer = Color(0xFFFFFE80);
+  static const Color onPrimary = midnightBlue;
+  static const Color onPrimaryContainer = midnightBlue;
 
-  // Secondary colors
-  static const Color secondary = Color(0xFF10B981); // Emerald
-  static const Color secondaryContainer = Color(0xFFD1FAE5);
+  static const Color secondary = liveGreen;
+  static const Color secondaryContainer = Color(0xFF80EAD7);
   static const Color onSecondary = Color(0xFFFFFFFF);
-  static const Color onSecondaryContainer = Color(0xFF064E3B);
+  static const Color onSecondaryContainer = Color(0xFF004D3D);
 
-  // Error colors
-  static const Color error = Color(0xFFEF4444);
-  static const Color errorContainer = Color(0xFFFEE2E2);
+  static const Color error = urgentRed;
+  static const Color errorContainer = Color(0xFFFF80B7);
   static const Color onError = Color(0xFFFFFFFF);
-  static const Color onErrorContainer = Color(0xFF7F1D1D);
+  static const Color onErrorContainer = Color(0xFF800037);
 
-  // Surface colors
-  static const Color surface = Color(0xFFFAFAFA);
-  static const Color surfaceVariant = Color(0xFFF3F4F6);
-  static const Color surfaceContainerHighest = Color(0xFFF3F4F6);
-  static const Color onSurface = Color(0xFF111827);
-  static const Color onSurfaceVariant = Color(0xFF6B7280);
+  static const Color surface = ghostWhite;
+  static const Color surfaceVariant = Color(0xFFF0F0F0);
+  static const Color surfaceContainerHighest = Color(0xFFE8E8E8);
+  static const Color onSurface = midnightBlue;
+  static const Color onSurfaceVariant = Color(0xFF4A5568);
 
-  // Background colors
   static const Color background = Color(0xFFFFFFFF);
-  static const Color onBackground = Color(0xFF111827);
+  static const Color onBackground = midnightBlue;
 
-  // Outline colors
   static const Color outline = Color(0xFFD1D5DB);
   static const Color outlineVariant = Color(0xFFE5E7EB);
 
-  // Status colors
-  static const Color success = Color(0xFF10B981);
-  static const Color warning = Color(0xFFF59E0B);
-  static const Color info = Color(0xFF3B82F6);
-
-  // Ride status colors
+  // Social status colors
+  static const Color friendOnline = friendGold;
+  static const Color rideActive = liveGreen;
   static const Color rideRequested = Color(0xFF8B5CF6);
   static const Color ridePending = Color(0xFFF59E0B);
-  static const Color rideAccepted = Color(0xFF10B981);
+  static const Color rideAccepted = liveGreen;
   static const Color rideInProgress = Color(0xFF3B82F6);
   static const Color rideCompleted = Color(0xFF059669);
-  static const Color rideCancelled = Color(0xFFEF4444);
+  static const Color rideCancelled = urgentRed;
 }
 
-/// App theme configuration
+/// Hopin 2.0 Animation Configuration
+class HopinAnimations {
+  // Snapchat-style quick animations
+  static const Duration fast = Duration(milliseconds: 150);
+  static const Duration medium = Duration(milliseconds: 300);
+  static const Duration slow = Duration(milliseconds: 500);
+  
+  // Signature curves
+  static const Curve snapBounce = Curves.elasticOut;
+  static const Curve snapEase = Curves.easeInOut;
+  static const Curve snapQuick = Curves.easeOut;
+}
+
+/// App theme configuration with Gen-Z design principles
 class AppTheme {
   static ThemeData get lightTheme {
     return ThemeData(
@@ -73,156 +88,101 @@ class AppTheme {
         onSurfaceVariant: HopinColors.onSurfaceVariant,
         outline: HopinColors.outline,
         outlineVariant: HopinColors.outlineVariant,
+        background: HopinColors.background,
+        onBackground: HopinColors.onBackground,
       ),
       
-      // Typography
-      textTheme: _textTheme,
+      // Gen-Z Typography (Proxima Nova inspired)
+      textTheme: _genZTextTheme,
       
-      // App Bar Theme
+      // App Bar Theme (minimal for map-first experience)
       appBarTheme: const AppBarTheme(
-        backgroundColor: HopinColors.background,
+        backgroundColor: Colors.transparent,
         foregroundColor: HopinColors.onBackground,
         elevation: 0,
-        centerTitle: true,
+        centerTitle: false,
         titleTextStyle: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
+          fontSize: 24,
+          fontWeight: FontWeight.w700,
           color: HopinColors.onBackground,
+          letterSpacing: -0.5,
         ),
       ),
       
-      // Elevated Button Theme
+      // Snapchat-style button themes
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: HopinColors.primary,
-          foregroundColor: HopinColors.onPrimary,
-          elevation: 2,
+          backgroundColor: HopinColors.snapchatYellow,
+          foregroundColor: HopinColors.midnightBlue,
+          elevation: 0,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(25),
           ),
           textStyle: const TextStyle(
             fontSize: 16,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -0.2,
           ),
         ),
       ),
       
-      // Filled Button Theme
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
-          backgroundColor: HopinColors.primary,
-          foregroundColor: HopinColors.onPrimary,
+          backgroundColor: HopinColors.snapchatYellow,
+          foregroundColor: HopinColors.midnightBlue,
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(25),
           ),
           textStyle: const TextStyle(
             fontSize: 16,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -0.2,
           ),
         ),
       ),
       
-      // Outlined Button Theme
-      outlinedButtonTheme: OutlinedButtonThemeData(
-        style: OutlinedButton.styleFrom(
-          foregroundColor: HopinColors.primary,
-          side: const BorderSide(color: HopinColors.primary),
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          textStyle: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
-      
-      // Text Button Theme
-      textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(
-          foregroundColor: HopinColors.primary,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-          textStyle: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
-      
-      // Input Decoration Theme
+      // Minimal input decoration for quick interactions
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: HopinColors.outline),
+          borderRadius: BorderRadius.circular(25),
+          borderSide: BorderSide.none,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: HopinColors.outline),
+          borderRadius: BorderRadius.circular(25),
+          borderSide: BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: HopinColors.primary, width: 2),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: HopinColors.error),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: HopinColors.error, width: 2),
+          borderRadius: BorderRadius.circular(25),
+          borderSide: const BorderSide(color: HopinColors.snapchatYellow, width: 2),
         ),
         filled: true,
-        fillColor: HopinColors.surface,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        fillColor: HopinColors.ghostWhite,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         hintStyle: const TextStyle(
           color: HopinColors.onSurfaceVariant,
           fontSize: 16,
+          fontWeight: FontWeight.w400,
         ),
       ),
       
-      // Card Theme
+      // Card theme for minimal UI elements
       cardTheme: CardThemeData(
-        elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        color: HopinColors.background,
-        shadowColor: HopinColors.onBackground.withValues(alpha: 0.1),
-      ),
-      
-      // Bottom Navigation Bar Theme
-      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: HopinColors.background,
-        selectedItemColor: HopinColors.primary,
-        unselectedItemColor: HopinColors.onSurfaceVariant,
-        elevation: 8,
-        type: BottomNavigationBarType.fixed,
-      ),
-      
-      // Floating Action Button Theme
-      floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        backgroundColor: HopinColors.primary,
-        foregroundColor: HopinColors.onPrimary,
-        elevation: 4,
-      ),
-      
-      // Chip Theme
-      chipTheme: ChipThemeData(
-        backgroundColor: HopinColors.surfaceVariant,
-        labelStyle: const TextStyle(
-          color: HopinColors.onSurface,
-          fontSize: 14,
-        ),
+        elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        color: HopinColors.background.withOpacity(0.9),
+        shadowColor: HopinColors.onBackground.withOpacity(0.05),
+      ),
+      
+      // Floating Action Button for primary actions
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: HopinColors.snapchatYellow,
+        foregroundColor: HopinColors.midnightBlue,
+        elevation: 4,
+        shape: CircleBorder(),
       ),
     );
   }
@@ -232,140 +192,241 @@ class AppTheme {
       useMaterial3: true,
       brightness: Brightness.dark,
       colorScheme: const ColorScheme.dark(
-        primary: HopinColors.primary,
-        primaryContainer: Color(0xFF312E81),
-        onPrimary: HopinColors.onPrimary,
-        onPrimaryContainer: Color(0xFFC7D2FE),
-        secondary: HopinColors.secondary,
-        secondaryContainer: Color(0xFF065F46),
-        onSecondary: HopinColors.onSecondary,
-        onSecondaryContainer: Color(0xFFA7F3D0),
-        error: HopinColors.error,
-        errorContainer: Color(0xFF991B1B),
-        onError: HopinColors.onError,
-        onErrorContainer: Color(0xFFFECACA),
-        surface: Color(0xFF1F2937),
-        surfaceContainerHighest: Color(0xFF374151),
-        onSurface: Color(0xFFF9FAFB),
+        primary: HopinColors.snapchatYellow,
+        primaryContainer: Color(0xFF4A4A00),
+        onPrimary: HopinColors.midnightBlue,
+        onPrimaryContainer: HopinColors.snapchatYellow,
+        secondary: HopinColors.liveGreen,
+        secondaryContainer: Color(0xFF006B54),
+        onSecondary: HopinColors.midnightBlue,
+        onSecondaryContainer: HopinColors.liveGreen,
+        error: HopinColors.urgentRed,
+        errorContainer: Color(0xFFB30052),
+        onError: Color(0xFFFFFFFF),
+        onErrorContainer: HopinColors.urgentRed,
+        surface: HopinColors.midnightBlue,
+        surfaceContainerHighest: Color(0xFF1F2937),
+        onSurface: HopinColors.ghostWhite,
         onSurfaceVariant: Color(0xFF9CA3AF),
         outline: Color(0xFF4B5563),
         outlineVariant: Color(0xFF374151),
+        background: Color(0xFF111827),
+        onBackground: HopinColors.ghostWhite,
       ),
-      textTheme: _textTheme.apply(
-        bodyColor: const Color(0xFFF9FAFB),
-        displayColor: const Color(0xFFF9FAFB),
+      textTheme: _genZTextTheme.apply(
+        bodyColor: HopinColors.ghostWhite,
+        displayColor: HopinColors.ghostWhite,
       ),
     );
   }
 
-  static const TextTheme _textTheme = TextTheme(
+  // Gen-Z optimized typography
+  static const TextTheme _genZTextTheme = TextTheme(
     displayLarge: TextStyle(
       fontSize: 57,
-      fontWeight: FontWeight.w400,
-      letterSpacing: -0.25,
+      fontWeight: FontWeight.w700,
+      letterSpacing: -1.0,
+      height: 1.1,
     ),
     displayMedium: TextStyle(
       fontSize: 45,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w700,
+      letterSpacing: -0.8,
+      height: 1.1,
     ),
     displaySmall: TextStyle(
       fontSize: 36,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w600,
+      letterSpacing: -0.5,
+      height: 1.2,
     ),
     headlineLarge: TextStyle(
-      fontSize: 32,
-      fontWeight: FontWeight.w600,
+      fontSize: 28,
+      fontWeight: FontWeight.w700,
+      letterSpacing: -0.5,
+      height: 1.2,
     ),
     headlineMedium: TextStyle(
-      fontSize: 28,
-      fontWeight: FontWeight.w600,
-    ),
-    headlineSmall: TextStyle(
       fontSize: 24,
       fontWeight: FontWeight.w600,
+      letterSpacing: -0.3,
+      height: 1.3,
+    ),
+    headlineSmall: TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.w600,
+      letterSpacing: -0.2,
+      height: 1.3,
     ),
     titleLarge: TextStyle(
-      fontSize: 22,
+      fontSize: 18,
       fontWeight: FontWeight.w600,
+      letterSpacing: -0.1,
+      height: 1.4,
     ),
     titleMedium: TextStyle(
       fontSize: 16,
-      fontWeight: FontWeight.w600,
-      letterSpacing: 0.15,
+      fontWeight: FontWeight.w500,
+      letterSpacing: 0,
+      height: 1.4,
     ),
     titleSmall: TextStyle(
       fontSize: 14,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w500,
       letterSpacing: 0.1,
+      height: 1.4,
     ),
     labelLarge: TextStyle(
       fontSize: 14,
       fontWeight: FontWeight.w600,
       letterSpacing: 0.1,
+      height: 1.4,
     ),
     labelMedium: TextStyle(
       fontSize: 12,
       fontWeight: FontWeight.w600,
       letterSpacing: 0.5,
+      height: 1.4,
     ),
     labelSmall: TextStyle(
       fontSize: 11,
       fontWeight: FontWeight.w600,
       letterSpacing: 0.5,
+      height: 1.4,
     ),
     bodyLarge: TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.w400,
-      letterSpacing: 0.5,
+      letterSpacing: 0,
+      height: 1.4,
     ),
     bodyMedium: TextStyle(
       fontSize: 14,
       fontWeight: FontWeight.w400,
-      letterSpacing: 0.25,
+      letterSpacing: 0,
+      height: 1.4,
     ),
     bodySmall: TextStyle(
       fontSize: 12,
       fontWeight: FontWeight.w400,
-      letterSpacing: 0.4,
+      letterSpacing: 0.2,
+      height: 1.4,
     ),
   );
+  
+  // Map styling for Snapchat-like appearance
+  static const String snapchatMapStyle = '''
+  [
+    {
+      "featureType": "all",
+      "stylers": [
+        {"saturation": -20},
+        {"lightness": 15},
+        {"gamma": 1.2}
+      ]
+    },
+    {
+      "featureType": "road",
+      "stylers": [
+        {"color": "#FFFFFF"},
+        {"weight": 1}
+      ]
+    },
+    {
+      "featureType": "water",
+      "stylers": [
+        {"color": "#E3F2FD"}
+      ]
+    },
+    {
+      "featureType": "landscape",
+      "stylers": [
+        {"color": "#FAFAFA"}
+      ]
+    },
+    {
+      "featureType": "poi",
+      "stylers": [
+        {"visibility": "simplified"},
+        {"color": "#F0F0F0"}
+      ]
+    }
+  ]
+  ''';
 }
 
-/// Custom text styles for specific use cases
+/// Snapchat-style text styles for specific use cases
 class HopinTextStyles {
-  static const TextStyle appBarTitle = TextStyle(
-    fontSize: 20,
+  static const TextStyle snapchatButton = TextStyle(
+    fontSize: 16,
     fontWeight: FontWeight.w700,
-    color: HopinColors.onBackground,
+    color: HopinColors.midnightBlue,
+    letterSpacing: -0.2,
   );
 
-  static const TextStyle rideTitle = TextStyle(
-    fontSize: 18,
-    fontWeight: FontWeight.w600,
-    color: HopinColors.onSurface,
-  );
-
-  static const TextStyle rideSubtitle = TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.w400,
-    color: HopinColors.onSurfaceVariant,
-  );
-
-  static const TextStyle priceText = TextStyle(
-    fontSize: 20,
-    fontWeight: FontWeight.w700,
-    color: HopinColors.primary,
-  );
-
-  static const TextStyle statusText = TextStyle(
+  static const TextStyle rideMarkerText = TextStyle(
     fontSize: 12,
+    fontWeight: FontWeight.w700,
+    color: HopinColors.onPrimary,
+    letterSpacing: 0,
+  );
+
+  static const TextStyle friendName = TextStyle(
+    fontSize: 14,
     fontWeight: FontWeight.w600,
+    color: HopinColors.friendGold,
+    letterSpacing: -0.1,
+  );
+
+  static const TextStyle liveIndicator = TextStyle(
+    fontSize: 10,
+    fontWeight: FontWeight.w700,
+    color: HopinColors.liveGreen,
     letterSpacing: 0.5,
   );
 
-  static const TextStyle caption = TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w400,
-    color: HopinColors.onSurfaceVariant,
+  static const TextStyle emergencyText = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
+    color: HopinColors.urgentRed,
+    letterSpacing: -0.1,
   );
+
+  static const TextStyle gestureResponse = TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.w400,
+  );
+}
+
+/// Custom animation helpers
+class HopinAnimationHelpers {
+  // Signature bounce animation for ride markers
+  static Animation<double> rideMarkerEntrance(AnimationController controller) {
+    return Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: controller,
+        curve: HopinAnimations.snapBounce,
+      ),
+    );
+  }
+  
+  // Gesture feedback animation
+  static Animation<double> gestureFlash(AnimationController controller) {
+    return Tween<double>(begin: 1.0, end: 1.5).animate(
+      CurvedAnimation(
+        parent: controller,
+        curve: HopinAnimations.snapEase,
+      ),
+    );
+  }
+  
+  // Quick fade animation for UI elements
+  static Animation<double> quickFade(AnimationController controller) {
+    return Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: controller,
+        curve: HopinAnimations.snapQuick,
+      ),
+    );
+  }
 } 
